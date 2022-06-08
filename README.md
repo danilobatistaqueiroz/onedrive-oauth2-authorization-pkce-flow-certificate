@@ -1,11 +1,6 @@
-# Pure javascript client hosted by Nodejs accessing Onedrive via Oauth2 certificate
+# A nodejs server accessing Onedrive via Oauth2 using authorization flow - pkce with certificate
 
-In this sample, I used:
-Webpack (watching int src and building in dist)
-- howler
-- jsZip
-- localforage
 
-Nodejs using ejs
+Nodejs using ejs, server side localstorage, rest end points
 
 
