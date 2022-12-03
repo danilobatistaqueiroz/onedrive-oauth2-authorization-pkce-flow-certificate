@@ -1,3 +1,11 @@
+# RUNNING THE APPLICATION
+
+`npx webpack --watch`  
+
+`nodemon server.js`  
+
+
+
 # A nodejs server accessing Onedrive via Oauth2 using authorization flow - pkce with certificate
 
 
