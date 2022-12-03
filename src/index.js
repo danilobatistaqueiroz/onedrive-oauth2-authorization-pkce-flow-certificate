@@ -12,13 +12,15 @@ async function authorize(){
 }
 
 function logoff(){
-  localStorage.removeItem('token');
+  console.log('logoff');
+  //localStorage.removeItem('token');
   window.document.location.reload();
 }
 
 let selfs = this
 
 async function downloader(res,self){
+  console.log('downloader');
   jsZip.loadAsync(res.responseText).then((zip) => {
     const numberOfCallbacks = Object.keys(zip.files).length - 1;
     let counter = 0;
@@ -37,6 +39,7 @@ async function downloader(res,self){
 }
 
 function download() {
+  console.log('download');
   window.location.href="/download"
 }
 function fndownload(data){
@@ -44,7 +47,7 @@ function fndownload(data){
 }
 
 function listDrive() {
-  console.log('href');
+  console.log('listDrive');
   window.location.href="http://localhost:3000/listdrive"
 }
 

@@ -11,8 +11,8 @@
     // });
   }
   $(window).on("load", () => {
-    let hastoken=<%=hastoken%>;
-    if (hastoken) {
+    let has_access_token=<%=hastoken%>;
+    if (has_access_token) {
       $('#authorize').hide();
       $('#logoff').show();
       showDownload();

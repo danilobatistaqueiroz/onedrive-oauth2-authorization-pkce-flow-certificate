@@ -5,12 +5,14 @@ Nodejs using ejs, server side localstorage, rest end points
 
 
 
-```bsh
+```javascript
 const iat = Math.floor(Date.now() / 1000) - 60 //data atual
 const nbf = iat
 const exp = (iat+(365*24*60*60)) //adiciona 1 ano a data atual
 //convert a number in epoch format to datetime format
 var date = new Date(1546108200 * 1000);
+//jti = é um GUID que pode ser gerado com uma ferramenta qualquer
+//sub = iss = GUID application ID = ClientID
 ```
 
 x5t = Base64url-encoded SHA-1 thumbprint 
@@ -41,19 +43,22 @@ var safeBase64EncodedThumbprint = function(thumbprint) {
   return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');;
 };
 
-let x5t = safeBase64EncodedThumbprint('5210ded4f4973318173ca41cad7fa525c05fc313')
+//openssl x509 -fingerprint -in certificate.pem -noout
+//remover os :
+let x5t = safeBase64EncodedThumbprint('53D70393B1FC09059808473458C9E28585B71F8D')
 ```
 
 ```json
 {
   "alg": "RS256",
   "typ": "JWT",
-  "x5t": "UkDe1PSXMxgHPKQcrX-lJcBfbxM"
+  "x5t": "Kje1tFr-iSBLd6Mw55t1-7zQa0w"
 }
 
   //"aud": "https://login.microsoftonline.com/consumers/V2.0/token",
 {
-  "aud": "https://login.microsoftonline.com/consumers/oauth2/v2.0/token",
+  //"aud": "https://login.microsoftonline.com/consumers/oauth2/v2.0/token",
+  "aud": "https://login.microsoftonline.com/f8cdef31-a31e-4b4a-93e4-5f571e91255a/oauth2/v2.0/token",
   "exp": "1686238032",
   "iss": "181a3ba2-ee66-441d-a429-801c4e228d33",
   "jti": "009daf1d-f2c2-4c7c-a605-848863c16801",
@@ -64,10 +69,16 @@ let x5t = safeBase64EncodedThumbprint('5210ded4f4973318173ca41cad7fa525c05fc313'
 ```
 
 ```bsh
+//gera um encrypted private key
 openssl genrsa -des3 -passout pass:x -out keypair.key 2048
+
+//gera um private key
 openssl rsa -passin pass:x -in keypair.key -out ./private.key
 
+//gera o certificado
 openssl req -newkey rsa:4096  -x509  -sha512  -days 365 -nodes -out certificate.pem -keyout privatekey.pem
+
+//imprimir a public key
 openssl x509 -pubkey -noout -in certificate.pem
 
 //convert a private key to an RSA private key?
@@ -139,3 +150,18 @@ NTI0MARlZARmNDk3MzMxODA3M2NhNDFjYWQ3ZmE1MjVjMDVmYzMxMw==
 `https://base64.guru/standards/base64url/encode`
 example thumbprint base64url encoded:
 NTI0MGRlZDAmNDk3MzMxODA3M2NhNDFjYWQ3ZmE1MjVjMDVmYzMxMw
+
+
+
+# Para verificar se está usando a Private Key correta
+
+Run the following command to view the modulus of the certificate.  
+`openssl x509 -noout -modulus -in server.crt | openssl md5`  
+Now you will receive the modulus something like a77c7953ea5283056a0c9ad75b274b96  
+
+Run the following command to view the modulus of the private key.  
+`openssl rsa -noout -modulus -in myserver.key | openssl md5`  
+Now you should get the modulus as same as certificate modulus above. i.e a77c7953ea5283056a0c9ad75b274b96  
+
+If the modulus of the certificate and the modulus of the private key do not match, then you're not using the right private key.  
+You can either create a brand new key and CSR and send contact support or do a search for all private keys on the system and compare their modulus.  

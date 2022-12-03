@@ -37,6 +37,7 @@ function generateCodeVerifier() {
 }
 
 async function load() {
+  console.log('load')
   //let codeVerifier = generateCodeVerifier();
   //let codeChallenge = await generateCodeChallengeFromVerifier(codeVerifier);
   let challenge = pkceChallenge();
@@ -44,15 +45,16 @@ async function load() {
   localStorage.setItem('codeChallenge',challenge.code_challenge);
   $.post('http://localhost:3000/code', {codeVerifier:challenge.code_verifier},(data=>console.log(data)),'json');
   let opt = {
-    client_id: '481a3ba2-ee66-441d-a429-801c4e228d33',
+    client_id: '5ca13223-4cf7-4bf3-9ba9-a8b7fe9ccdd6',
     response_type: 'code',
     code_challenge: challenge.code_challenge,
     code_challenge_method: 'S256',
-    scope: 'onedrive.appfolder',
+    scope: 'Files.Read Files.ReadWrite Files.ReadWrite.All Files.ReadWrite.AppFolder',
     redirect_uri: 'http://localhost:3000/webapp',
     state: '123'
   }
   let query = new URLSearchParams(opt)
+  console.log(query);
   return `https://login.microsoftonline.com/consumers/oauth2/v2.0/authorize?${query}`
   //return `https://login.live.com/oauth20_authorize.srf?${query}`
 }

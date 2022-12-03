@@ -22,7 +22,6 @@
     "jszip": "^3.10.0",
     "localStorage": "^1.0.4",
     "localforage": "^1.10.0",
-    "nodemon": "^2.0.16",
     "pkce-challenge": "^3.0.0",
     "request": "^2.88.2",
     "uuidv4": "^6.2.13"

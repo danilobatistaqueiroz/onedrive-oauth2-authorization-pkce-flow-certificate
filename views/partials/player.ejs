@@ -18,6 +18,7 @@
       sound.play();
     }
     $(window).on("load",()=>{
+      console.log('load player')
       if(localStorage.getItem('token')){
         $('#play').show();
         $('#remove').show();
