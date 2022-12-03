@@ -1,8 +1,6 @@
 var express = require('express');
 const cors = require('cors');
-const https = require('https');
 const localStorage = require("localStorage");
-const fs = require('fs');
 const bodyParser = require('body-parser');
 
 var app = express();
