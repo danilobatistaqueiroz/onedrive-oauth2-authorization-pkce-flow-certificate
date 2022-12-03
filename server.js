@@ -1,6 +1,5 @@
 var express = require('express');
 const cors = require('cors');
-const localStorage = require("localStorage");
 const bodyParser = require('body-parser');
 
 var app = express();
@@ -19,8 +18,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/', function (req, res) {
-  let hastoken = localStorage.getItem("access_token") ? true : false;
-  res.render('main', { authCode: '', hastoken: hastoken });
+  res.render('main', { authCode: '' });
 });
 
 app.get('/webapp', async function (req, res) {
