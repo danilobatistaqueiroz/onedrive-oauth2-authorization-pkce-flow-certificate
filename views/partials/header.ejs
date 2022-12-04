@@ -21,7 +21,6 @@
     } else {
       $('#authorize').show();
       $('#logoff').hide();
-      $('#download').hide();
     }
   });
 </script>
@@ -46,12 +45,6 @@
 
 <header>
   <div class="dropdown">
-    <button id="listDrive" onclick="listDrive()" class="btn btn-primary">
-      <ion-icon name="list-outline"></ion-icon>
-    </button>
-    <button id="download" onclick="download()" class="btn btn-primary">
-      <ion-icon name="cloud-download-outline"></ion-icon>
-    </button>
     <button id="authorize" onclick="authorize()" class="btn btn-primary">
       <ion-icon name="logo-microsoft"></ion-icon>Logar no Onedrive
     </button>
